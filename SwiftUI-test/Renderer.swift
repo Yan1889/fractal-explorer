@@ -125,7 +125,7 @@ class Renderer: NSObject, MTKViewDelegate {
             // mandelbrotConstant: SIMD2<Float>(-0.8, 0.156),
             mandelbrotConstant: SIMD2<Float>(mandelbrotRe, mandelbrotIm),
             // mandelbrotCenter: SIMD2<Float>(-0.743645887037151, 0.131823904205330),
-            mandelbrotCenter: SIMD2<Float>(0.0, 0.0),
+            mandelbrotCenter: SIMD2<Float>(-0.8, -1.0),
             mandelbrotWidth: mandelbrotWidth,
         )
         

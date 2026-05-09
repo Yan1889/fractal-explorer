@@ -29,16 +29,21 @@ vertex VertexOut vertexShader(VertexIn in [[stage_in]]) {
 struct Complex {
     float re, im;
     
+    Complex squared() const;
     float len() const;
     float len_sq() const;
 };
 
-inline Complex operator+(Complex a, Complex b) {
+inline Complex operator+(const Complex a, const Complex b) {
     return { a.re + b.re, a.im + b.im };
 }
 
 inline Complex operator*(Complex a, Complex b) {
     return { a.re * b.re - a.im * b.im, a.re * b.im + a.im * b.re };
+}
+
+inline Complex Complex::squared() const {
+    return *this * *this;
 }
 
 inline float Complex::len() const {
@@ -69,8 +74,8 @@ struct FragUniforms {
     float mandelbrotWidth;
 };
 
-Complex iterate(Complex z, constant FragUniforms &uniforms) {
-    return z * z + uniforms.mandelbrotConstant;
+Complex iterate(Complex z, Complex c) {
+    return Complex{ abs(z.re), abs(z.im) }.squared() + c;
 }
 
 fragment float4 fragmentShader(float4 position [[position]],
@@ -78,27 +83,25 @@ fragment float4 fragmentShader(float4 position [[position]],
     
     float2 ndc;
     ndc.x = (position.x / uniforms.viewportSize.x) * 2.0 - 1.0;
-    ndc.y = 1.0 - (position.y / uniforms.viewportSize.y) * 2.0;
+    ndc.y = -(1.0 - (position.y / uniforms.viewportSize.y) * 2.0);
     
     float2 complex_plane = ndc * uniforms.mandelbrotWidth + uniforms.mandelbrotCenter;
     
-    Complex z = Complex{
-        complex_plane.x,
-        complex_plane.y
-    };
+    Complex c = Complex{ complex_plane.x, complex_plane.y };
+    Complex z = Complex{ 0.0, 0.0 };
     
-    int max_iterations = 300;
+    int max_iterations = 10000;
     
     for (int i = 0; i < max_iterations; i++) {
-        z = iterate(z, uniforms);
+        z = iterate(z, c);
         
-        if (z.len_sq() > 2 * 2) {
+        if (z.len_sq() > 4) {
             // v < 0 < max_iterations
             float v = i + 1 - log(log(z.len())) / log(2.0);
             
             // 0 < t < 1
             // float t = v / (float) max_iterations;
-            float t = pow(v / (float)max_iterations, 0.2);
+            float t = pow(v / (float)max_iterations, 0.1);
             
             int color_A_idx = (int) (t * (COLOR_COUNT - 1) + 0);
             int color_B_idx = (int) (t * (COLOR_COUNT - 1) + 1);
