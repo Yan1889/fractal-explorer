@@ -9,6 +9,11 @@ import SwiftUI
 import MetalKit
 
 struct MetalView: NSViewRepresentable {
+    
+    var mandelbrotRe: Float
+    var mandelbrotIm: Float
+    var isZooming: Bool
+    
     func makeNSView(context: Context) -> some NSView {
         let view = MTKView()
         
@@ -18,7 +23,11 @@ struct MetalView: NSViewRepresentable {
         return view
     }
     
-    func updateNSView(_ nsView: NSViewType, context: Context) {}
+    func updateNSView(_ nsView: NSViewType, context: Context) {
+        context.coordinator.renderer?.mandelbrotRe = mandelbrotRe
+        context.coordinator.renderer?.mandelbrotIm = mandelbrotIm
+        context.coordinator.renderer?.isZooming = isZooming
+    }
     
     func makeCoordinator() -> Coordinator {
         Coordinator()

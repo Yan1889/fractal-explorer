@@ -9,11 +9,6 @@
 
 using namespace metal;
 
-struct Uniforms {
-    float2 viewportSize;
-    float2 mandelbrotCenter;
-    float mandelbrotWidth;
-};
 
 struct VertexIn {
     float2 pos [[attribute(0)]];
@@ -67,22 +62,35 @@ constant float4 palette[] = {
 
 constant constexpr int COLOR_COUNT = sizeof(palette) / sizeof(palette[0]);
 
+struct FragUniforms {
+    float2 viewportSize;
+    Complex mandelbrotConstant;
+    float2 mandelbrotCenter;
+    float mandelbrotWidth;
+};
+
+Complex iterate(Complex z, constant FragUniforms &uniforms) {
+    return z * z + uniforms.mandelbrotConstant;
+}
+
 fragment float4 fragmentShader(float4 position [[position]],
-                               constant Uniforms &uniforms [[buffer(0)]]) {
+                               constant FragUniforms &uniforms [[buffer(0)]]) {
     
-    float2 ndc = (position.xy / uniforms.viewportSize) * 2.0 - 1.0;
+    float2 ndc;
+    ndc.x = (position.x / uniforms.viewportSize.x) * 2.0 - 1.0;
+    ndc.y = 1.0 - (position.y / uniforms.viewportSize.y) * 2.0;
+    
     float2 complex_plane = ndc * uniforms.mandelbrotWidth + uniforms.mandelbrotCenter;
     
-    Complex c = Complex{
+    Complex z = Complex{
         complex_plane.x,
         complex_plane.y
     };
-    Complex z = c;
     
     int max_iterations = 300;
     
     for (int i = 0; i < max_iterations; i++) {
-        z = z * z + c;
+        z = iterate(z, uniforms);
         
         if (z.len_sq() > 2 * 2) {
             // v < 0 < max_iterations

@@ -89,7 +89,11 @@ class Renderer: NSObject, MTKViewDelegate {
         wallTexture = try! loader.newTexture(URL: url, options: [.SRGB: true])
     }
     
-    var mandelbrotWidth: Float = 2.0
+    var mandelbrotRe: Float = 0.0
+    var mandelbrotIm: Float = 0.0
+    var isZooming: Bool = false
+    
+    var mandelbrotWidth: Float = 3.0
     
     func draw(in view: MTKView) {
         view.colorPixelFormat = .bgra8Unorm
@@ -108,6 +112,7 @@ class Renderer: NSObject, MTKViewDelegate {
         
         struct Uniforms {
             let viewportSize: SIMD2<Float>
+            let mandelbrotConstant: SIMD2<Float>
             let mandelbrotCenter: SIMD2<Float>
             let mandelbrotWidth: Float
         }
@@ -117,11 +122,17 @@ class Renderer: NSObject, MTKViewDelegate {
                 Float(view.drawableSize.width),
                 Float(view.drawableSize.height),
             ),
-            mandelbrotCenter: SIMD2<Float>(-0.743645887037151, 0.131823904205330),
+            // mandelbrotConstant: SIMD2<Float>(-0.8, 0.156),
+            mandelbrotConstant: SIMD2<Float>(mandelbrotRe, mandelbrotIm),
+            // mandelbrotCenter: SIMD2<Float>(-0.743645887037151, 0.131823904205330),
+            mandelbrotCenter: SIMD2<Float>(0.0, 0.0),
             mandelbrotWidth: mandelbrotWidth,
         )
         
-        mandelbrotWidth *= 0.99
+        if (isZooming) {
+            mandelbrotWidth *= 0.99
+        }
+        
         
         encoder.setFragmentBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: 0)
         encoder.setVertexBuffer(squareBuffer, offset: 0, index: 0)
