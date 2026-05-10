@@ -93,7 +93,17 @@ class Renderer: NSObject, MTKViewDelegate {
     var mandelbrotIm: Float = 0.0
     var isZooming: Bool = false
     
-    var mandelbrotWidth: Float = 3.0
+    var mandelbrotCenter: CGPoint = CGPoint(x: -0.5, y: 0.0)
+    var mandelbrotBox: CGPoint = CGPoint(x: 3.0, y: 1.2)
+    
+    
+    func zoomIntoRegion(center: CGPoint, box: CGPoint) {
+        // center and box in percent \in [-1; 1] w.r.t. the currently visible area
+        mandelbrotCenter.x += center.x * mandelbrotBox.x
+        mandelbrotCenter.y += center.y * mandelbrotBox.y
+        mandelbrotBox.x *= box.x
+        mandelbrotBox.y *= box.y
+    }
     
     func draw(in view: MTKView) {
         view.colorPixelFormat = .bgra8Unorm
@@ -114,7 +124,7 @@ class Renderer: NSObject, MTKViewDelegate {
             let viewportSize: SIMD2<Float>
             let mandelbrotConstant: SIMD2<Float>
             let mandelbrotCenter: SIMD2<Float>
-            let mandelbrotWidth: Float
+            let mandelbrotBox: SIMD2<Float>
         }
         
         var uniforms = Uniforms(
@@ -122,15 +132,15 @@ class Renderer: NSObject, MTKViewDelegate {
                 Float(view.drawableSize.width),
                 Float(view.drawableSize.height),
             ),
-            // mandelbrotConstant: SIMD2<Float>(-0.8, 0.156),
             mandelbrotConstant: SIMD2<Float>(mandelbrotRe, mandelbrotIm),
-            // mandelbrotCenter: SIMD2<Float>(-0.743645887037151, 0.131823904205330),
-            mandelbrotCenter: SIMD2<Float>(-0.8, -1.0),
-            mandelbrotWidth: mandelbrotWidth,
+            mandelbrotCenter: SIMD2<Float>(Float(mandelbrotCenter.x), Float(mandelbrotCenter.y)),
+            mandelbrotBox: SIMD2<Float>(Float(mandelbrotBox.x), Float(mandelbrotBox.y)),
         )
         
+        // print(mandelbrotCenter, mandelbrotBox)
+        
         if (isZooming) {
-            mandelbrotWidth *= 0.99
+            // mandelbrotWidth *= 0.99
         }
         
         

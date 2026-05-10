@@ -13,9 +13,11 @@ struct ContentView: View {
     @State var mandelbrotIm: Float = 0.156
     @State var isZooming: Bool = false
     
-    @State var mouseStartLoc: CGPoint
-    @State var mouseCurrLoc: CGPoint
+    @State var mouseStartLoc: CGPoint = .zero
+    @State var mouseCurrLoc: CGPoint = .zero
     
+    @State var center: CGPoint = .zero
+    @State var box: CGPoint = CGPoint(x: 2, y: 2)
     
     var body: some View {
         VStack {
@@ -23,16 +25,40 @@ struct ContentView: View {
                 .frame(width: 900, height: 50)
             
             ZStack {
-                MetalView(mandelbrotRe: mandelbrotRe, mandelbrotIm: mandelbrotIm, isZooming: isZooming)
+                MetalView(
+                    mandelbrotRe: mandelbrotRe,
+                    mandelbrotIm: mandelbrotIm,
+                    isZooming: isZooming,
+                    center: center,
+                    box: box,
+                )
                     .frame(width: 900, height: 700)
                     .gesture(
                         DragGesture()
-                            .onChanged { e in
-                                mouseStartLoc = e.startLocation
-                                mouseCurrLoc = e.location
+                            .onChanged { m in
+                                mouseStartLoc = m.startLocation
+                                mouseCurrLoc = m.location
+                            }
+                            .onEnded { m in
+                                center.x = (mouseCurrLoc + mouseStartLoc).x / 900.0 - 1.0
+                                center.y = (mouseCurrLoc + mouseStartLoc).y / 700.0 - 1.0
+                                box.x = (mouseCurrLoc - mouseStartLoc).x / 900.0
+                                box.y = (mouseCurrLoc - mouseStartLoc).y / 700.0
+                                
+                                mouseStartLoc = .zero
+                                mouseCurrLoc = .zero
                             }
                     )
+                
+                Rectangle()
+                    .fill(.white.opacity(0.5))
+                    .frame(
+                        width: (mouseCurrLoc - mouseStartLoc).x,
+                        height: (mouseCurrLoc - mouseStartLoc).y,
+                    )
+                    .position((mouseCurrLoc + mouseStartLoc) * 0.5)
             }
+            .frame(width: 900)
         }
     }
 }

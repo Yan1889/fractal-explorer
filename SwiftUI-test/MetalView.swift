@@ -14,6 +14,9 @@ struct MetalView: NSViewRepresentable {
     var mandelbrotIm: Float
     var isZooming: Bool
     
+    var center: CGPoint
+    var box: CGPoint
+    
     func makeNSView(context: Context) -> some NSView {
         let view = MTKView()
         
@@ -27,6 +30,7 @@ struct MetalView: NSViewRepresentable {
         context.coordinator.renderer?.mandelbrotRe = mandelbrotRe
         context.coordinator.renderer?.mandelbrotIm = mandelbrotIm
         context.coordinator.renderer?.isZooming = isZooming
+        context.coordinator.renderer?.zoomIntoRegion(center: center, box: box)
     }
     
     func makeCoordinator() -> Coordinator {

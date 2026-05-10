@@ -71,7 +71,7 @@ struct FragUniforms {
     float2 viewportSize;
     Complex mandelbrotConstant;
     float2 mandelbrotCenter;
-    float mandelbrotWidth;
+    float2 mandelbrotBox;
 };
 
 Complex iterate(Complex z, Complex c) {
@@ -85,7 +85,7 @@ fragment float4 fragmentShader(float4 position [[position]],
     ndc.x = (position.x / uniforms.viewportSize.x) * 2.0 - 1.0;
     ndc.y = -(1.0 - (position.y / uniforms.viewportSize.y) * 2.0);
     
-    float2 complex_plane = ndc * uniforms.mandelbrotWidth + uniforms.mandelbrotCenter;
+    float2 complex_plane = ndc * uniforms.mandelbrotBox + uniforms.mandelbrotCenter;
     
     Complex c = Complex{ complex_plane.x, complex_plane.y };
     Complex z = Complex{ 0.0, 0.0 };
