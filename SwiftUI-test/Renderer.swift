@@ -93,8 +93,8 @@ class Renderer: NSObject, MTKViewDelegate {
     var mandelbrotIm: Float = 0.0
     var isZooming: Bool = false
     
-    var mandelbrotCenter: CGPoint = CGPoint(x: -0.5, y: 0.0)
-    var mandelbrotBox: CGPoint = CGPoint(x: 3.0, y: 1.2)
+    var mandelbrotCenter: CGPoint = .zero
+    var mandelbrotBox: CGPoint =  CGPoint(x: 3, y: 3)
     
     
     func zoomIntoRegion(center: CGPoint, box: CGPoint) {

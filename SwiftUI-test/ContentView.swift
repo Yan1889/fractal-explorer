@@ -17,7 +17,7 @@ struct ContentView: View {
     @State var mouseCurrLoc: CGPoint = .zero
     
     @State var center: CGPoint = .zero
-    @State var box: CGPoint = CGPoint(x: 2, y: 2)
+    @State var box: CGPoint = CGPoint(x: 1, y: 1)
     
     var body: some View {
         VStack {
