@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		2C6EA7602FAA554C000DA928 /* SwiftUI-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C6EA7602FAA554C000DA928 /* fractal-explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fractal-explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2C6EA7622FAA554C000DA928 /* SwiftUI-test */ = {
+		2C6EA7622FAA554C000DA928 /* fractal-explorer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "SwiftUI-test";
+			path = "fractal-explorer";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		2C6EA7572FAA554C000DA928 = {
 			isa = PBXGroup;
 			children = (
-				2C6EA7622FAA554C000DA928 /* SwiftUI-test */,
+				2C6EA7622FAA554C000DA928 /* fractal-explorer */,
 				2C6EA7612FAA554C000DA928 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		2C6EA7612FAA554C000DA928 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C6EA7602FAA554C000DA928 /* SwiftUI-test.app */,
+				2C6EA7602FAA554C000DA928 /* fractal-explorer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2C6EA75F2FAA554C000DA928 /* SwiftUI-test */ = {
+		2C6EA75F2FAA554C000DA928 /* fractal-explorer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C6EA76B2FAA554D000DA928 /* Build configuration list for PBXNativeTarget "SwiftUI-test" */;
+			buildConfigurationList = 2C6EA76B2FAA554D000DA928 /* Build configuration list for PBXNativeTarget "fractal-explorer" */;
 			buildPhases = (
 				2C6EA75C2FAA554C000DA928 /* Sources */,
 				2C6EA75D2FAA554C000DA928 /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				2C6EA7622FAA554C000DA928 /* SwiftUI-test */,
+				2C6EA7622FAA554C000DA928 /* fractal-explorer */,
 			);
-			name = "SwiftUI-test";
+			name = "fractal-explorer";
 			packageProductDependencies = (
 			);
 			productName = "SwiftUI-test";
-			productReference = 2C6EA7602FAA554C000DA928 /* SwiftUI-test.app */;
+			productReference = 2C6EA7602FAA554C000DA928 /* fractal-explorer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2C6EA75B2FAA554C000DA928 /* Build configuration list for PBXProject "SwiftUI-test" */;
+			buildConfigurationList = 2C6EA75B2FAA554C000DA928 /* Build configuration list for PBXProject "fractal-explorer" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2C6EA75F2FAA554C000DA928 /* SwiftUI-test */,
+				2C6EA75F2FAA554C000DA928 /* fractal-explorer */,
 			);
 		};
 /* End PBXProject section */
@@ -261,7 +261,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.yan1.SwiftUI-test";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.yan1.fractal-explorer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -291,7 +291,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.yan1.SwiftUI-test";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.yan1.fractal-explorer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -306,7 +306,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C6EA75B2FAA554C000DA928 /* Build configuration list for PBXProject "SwiftUI-test" */ = {
+		2C6EA75B2FAA554C000DA928 /* Build configuration list for PBXProject "fractal-explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C6EA7692FAA554D000DA928 /* Debug */,
@@ -315,7 +315,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2C6EA76B2FAA554D000DA928 /* Build configuration list for PBXNativeTarget "SwiftUI-test" */ = {
+		2C6EA76B2FAA554D000DA928 /* Build configuration list for PBXNativeTarget "fractal-explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C6EA76C2FAA554D000DA928 /* Debug */,

@@ -29,7 +29,6 @@ class Renderer: NSObject, MTKViewDelegate {
         
         setupPipeline()
         setupBuffers()
-        setupTextures()
     }
     
     func setupPipeline() {
@@ -81,12 +80,6 @@ class Renderer: NSObject, MTKViewDelegate {
             length: 6 * 2 * MemoryLayout<Float>.size,
             options: []
         )!
-    }
-    
-    func setupTextures() {
-        let loader = MTKTextureLoader(device: device)
-        let url = Bundle.main.url(forResource: "wall", withExtension: "jpg")!
-        wallTexture = try! loader.newTexture(URL: url, options: [.SRGB: true])
     }
     
     var mandelbrotRe: Float = 0.0
